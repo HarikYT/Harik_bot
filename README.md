@@ -1,1 +1,1 @@
-<img src="http://harik.elementfx.com/Files/Index icons/harik_header.png" alt="">
+<img src="http://harik.elementfx.com/Files/Index icons/logo.png" alt="">
