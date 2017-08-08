@@ -6,7 +6,7 @@ const config = require("./Configs/HConfig.json")
 const Sbot = require("./Configs/pharik.json")
 const chalk = require("chalk")
 const DC = new Discord.Client();
-const WebHook = new Discord.WebhookClient("319777312277004288", "6ejyrVnU2I_tb9hySGPncIXzmUhtTF49ShfOT_PCPBdzLz-dFWotXbBNnJ_lip7eMQHM");
+const WebHook = new Discord.WebhookClient("ID", "TOKEN");
 
 // Use npm install <pkg> --save afterwards to install a package and save it as a dependency in the package.json file.
 
@@ -209,12 +209,12 @@ if (message.content.startsWith(Sbot.prefix + "eval")) {
   .addField("Reason", `${reason}`)
   .setFooter()
  h1.channels.get(modlog.id).sendEmbed(kick);
- if (!modlog) return message.reply('I cannot find a mod-log channel');
- if (message.mentions.users.size < 1) return message.reply('You must mention someone to ban them.').catch(console.error);
 }
 if(message.content.startsWith(Sbot.prefix + "ban")) {
   let member = message.mentions.members.first();
   let reason = message.content.split(/\s+/g).slice(2).join(" ");
+  if (!modlog) return message.reply('I cannot find a mod-log channel');
+  if (message.mentions.users.size < 1) return message.reply('You must mention someone to ban them.').catch(console.error);
   member.ban(reason);
   const ban = new Discord.RichEmbed()
   .setTitle("Banned")
