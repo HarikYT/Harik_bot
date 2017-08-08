@@ -25,8 +25,8 @@ function clean(text) {
 h1.login(config.token)
 
 h1.on('ready', () => {
-  console.log(chalk.bgBlue('HarikBot1 On'));
-  h1.user.setGame(`Being Tested | ${h1.guilds.size} guilds!` ,"https://twitch.tv/harikyt" );
+  console.log(chalk.bgBlue(`HarikBot1 On ${h1.user.name} ${h1.user.id}`));
+  h1.user.setGame(`Being Tested | ${h1.guilds.size} guilds!` ,"https://twitch.tv/harikyt", 1 );
 })
 
 
@@ -41,14 +41,6 @@ h1.on("message", message => {
     });
 }
 
-if (message.content.startsWith(config.prefix2 + "restart")) { 
-  if (message.author.id !== DC.user.id) return;
-    h1.destroy((err) => {
-        console.log(err);
-    });
-     console.log('rs\nrs');
-}
-
 if (message.content.startsWith(config.prefix + "del")) {
    if(message.author.id !== Ownerid) return;
 	 var usernumber = message.content.split(' ').slice(1).join(' ');
@@ -58,25 +50,25 @@ if (message.content.startsWith(config.prefix + "del")) {
 }
 
   if (message.content.startsWith(config.prefix2 + "test")) {
-    message.channel.sendMessage("Test Complete. Thank you for using harik bot. I really appreciate it!");
-    message.channel.sendMessage("If you have any problems please contact @HarikYT#9974 thx")
+    message.channel.send("Test Complete. Thank you for using harik bot. I really appreciate it!");
+    message.channel.send("If you have any problems please contact @HarikYT#9974 thx")
   }
 
 
 
   if (message.content.startsWith(config.prefix + "ideas?")) {
-   message.channel.sendMessage("Any ideas for me?")
-   message.channel.sendMessage("i would appreciate them all :D")
+   message.channel.send("Any ideas for me?")
+   message.channel.send("i would appreciate them all :D")
   }
 
 
 
  if (message.content.startsWith(config.prefix2 + "helpRIP")) {
-   message.channel.sendMessage("Help Message Sent!")
-   message.author.sendMessage("My Commands are:")
-   message.author.sendMessage("Prefix 1: ideas,del(w.i.p do not use)and ping")
-   message.author.sendMessage("Prefix 2: Test")
-   message.author.sendMessage("Thats it for now. Thanks for using harik bot :) ")
+   message.channel.send("Help Message Sent!")
+   message.author.send("My Commands are:")
+   message.author.send("Prefix 1: ideas,del(w.i.p do not use)and ping")
+   message.author.send("Prefix 2: Test")
+   message.author.send("Thats it for now. Thanks for using harik bot :) ")
   }
 
 
@@ -94,7 +86,7 @@ if (message.content.startsWith(config.prefix + "del")) {
 
 
   if (message.content.startsWith(config.prefix + "test")) {
-    message.channel.sendMessage("sorry its h!!test");
+    message.channel.send("sorry its h!!test");
   }
 
   if (message.content.startsWith(config.prefix + "SendTGP")) {
@@ -118,7 +110,7 @@ if (message.content.startsWith(config.prefix + "del")) {
  message.channel.sendEmbed(embed);
 }
    const swearWords = ["darn", "shucks", "frak", "shite", "ded"];
-  if( swearWords.some(word => message.content.includes(word)) ) {
+  if(swearWords.some(word => message.content.includes(word)) ) {
     message.delete(1)
     console.log(`${message.author.username} sweared!`)
   }
@@ -150,7 +142,7 @@ if (message.content.startsWith(config.prefix + "eval")) {
   }
 
 if(message.content.startsWith(config.prefix + "todo"))
- if(message.author.id !== "224217063458078730") return
+ if(!message.author.id === "224217063458078730") return
     var usertext = message.content.split(' ').slice(1).join(' ');
     var fs = require('fs');
     fs.appendFile('todo.txt', `${usertext}\r\n`, function (err) {
@@ -199,28 +191,68 @@ if (message.content.startsWith(Sbot.prefix + "eval")) {
 
       message.channel.sendCode("xl", clean(evaled));
     } catch (err) {
-      message.channel.sendMessage(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``);
+      message.channel.send(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``);
       console.log(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``);
     }
   }
   if (message.content.startsWith(Sbot.prefix + "kick")) {
+  let modlog = h1.channels.find('name', 'mod-log'); 
   let member = message.mentions.members.first();
   let reason = message.content.split(/\s+/g).slice(2).join(" ");
-  member.kick(reason);
+ if (!message.guild.member(user).kickable) return message.reply('I cannot kick that member');
+  message.guild.member(user).kick(reason);
+  const kick = new Discord.RichEmbed()
+  .setTitle("Kicked")
+  .setColor(0x00AE86)
+  .addField("User", `${member}`)
+  .addField("Moderator", `${message.author.username}`)
+  .addField("Reason", `${reason}`)
+  .setFooter()
+ h1.channels.get(modlog.id).sendEmbed(kick);
+ if (!modlog) return message.reply('I cannot find a mod-log channel');
+ if (message.mentions.users.size < 1) return message.reply('You must mention someone to ban them.').catch(console.error);
 }
 if(message.content.startsWith(Sbot.prefix + "ban")) {
   let member = message.mentions.members.first();
   let reason = message.content.split(/\s+/g).slice(2).join(" ");
   member.ban(reason);
+  const ban = new Discord.RichEmbed()
+  .setTitle("Banned")
+  .setColor(0x00AE86)
+  .addField("User", `${member}`)
+  .addField("Moderator", `${message.author.username}`)
+  .addField("Reason", `${reason}`)
+  .setFooter()
+ h1.channels.find('name', 'mod-log').sendEmbed(ban);
 }
 if(message.content.startsWith(Sbot.prefix + "unban")) {
   let member = message.mentions.members.first();
 member.unban();
+const unban = new Discord.RichEmbed()
+  .setTitle("Unbanned")
+  .setColor(0x00AE86)
+  .addField("User", `${member}`)
+  .addField("Moderator", `${message.author.username}`)
+  .setFooter()
+ h1.channels.find('name', 'mod-log').sendEmbed(unban);
 }
- if (message.author.id === DC.user.id || message.author.bot) return;
  if(message.content.startsWith(Sbot.prefix + "announce")) {
+ if (message.author.id === DC.user.id || message.author.bot) return;
 var usertext = message.content.split(" ").slice(1).join(" ")
 WebHook.send(usertext)
+}
+if(message.content.startsWith(Sbot.prefix + "warn")) {
+  let member = message.mentions.members.first();
+  let reason = message.content.split(/\s+/g).slice(2).join(" ")
+ const warn = new Discord.RichEmbed()
+  .setTitle("Warned")
+  .setThumbnail("harik.elementfx.com/Files/Index%20icons/Warn.png")
+  .setColor(0x00AE86)
+  .addField("User", `${member}`)
+  .addField("Moderator", `${message.author.username}`)
+  .addField("Reason", `${reason}`)
+  .setFooter()
+ h1.channels.find('name', 'mod-log').sendEmbed(warn);
 }
 });
 
@@ -274,7 +306,7 @@ return message.reply(`${message.user.username} Just Got Kicked`);
   .setThumbnail('https://cdn.discordapp.com/avatars/224217063458078730/c9a2ec3303d6103ff3e75720b5dfbf68.png')
   .setURL('https://discord.js.org/#/docs/main/indev/class/RichEmbed')
   .addField('This is a field title, it can hold 256 characters', 'This is a field value, it can hold 2048 characters.')
- return message.channel.sendMessage({embed}).catch(console.error);
+ return message.channel.send({embed}).catch(console.error);
 });*/
 
 // h1.on("", => {

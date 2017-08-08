@@ -23,7 +23,7 @@ h1.on('ready', () => {
 
 h1.on("message", message => {
   if (message.content.startsWith(config.prefix + "ping")) {
-    message.channel.sendMessage("pong!");
+    message.channel.send("pong!");
   }
 
 h1.on('message', message => {
@@ -45,7 +45,7 @@ if (message.content.startsWith(config.prefix + "say")) {
     message.delete(1);
      message.channel.startTyping();
 	  setTimeout(() => {
-	   message.channel.sendMessage(usertext)
+	   message.channel.send(usertext)
 	 message.channel.stopTyping();
 	}, Math.random() * (0 - 20) + 1 * 2000);
  }
@@ -68,7 +68,7 @@ if (message.content.startsWith(config.prefix + "eval")) {
 
       message.channel.sendCode("xl", clean(evaled));
     } catch (err) {
-      message.channel.sendMessage(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``);
+      message.channel.send(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``);
       console.log(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``);
     }
   }

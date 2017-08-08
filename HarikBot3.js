@@ -8,7 +8,7 @@ h1.login(config.token)
 
 h1.on("message", message => {
   if (message.content.startsWith(prefix2 + "stop")) {
-  	message.channel.sendMessage("Turning off")
+  	message.channel.send("Turning off")
   	h1.destroy((err) => {
         console.log(err);
     });

@@ -34,7 +34,7 @@ h1.on('message', message => {
 
   if (message.content.startsWith(config.prefix + 'level')) 
   {
-    message.reply(`You are currently level ${userData.level}, with ${userData.points} points. (test ${userData.Username})`);
+    message.reply(`You are currently level ${userData.level}, with ${userData.points} points.`);
   }
   fs.writeFile('./points.json', JSON.stringify(points), (err) => {
     if (err) console.error(err)
