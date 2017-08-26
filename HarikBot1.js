@@ -10,8 +10,8 @@ const WebHook = new Discord.WebhookClient("ID", "TOKEN");
 
 // Use npm install <pkg> --save afterwards to install a package and save it as a dependency in the package.json file.
 
-var Ownerid = ('224217063458078730')
-var CoOwnerid = ('223537608041562113')
+var Ownerid = ('Userid')
+var CoOwnerid = ('userid')
 let modlog = h1.channels.find('name', 'mod-log');
 var vid = ("0.0.9")
 
@@ -70,31 +70,9 @@ if (message.content.startsWith(config.prefix + "del")) {
    message.author.send("Prefix 2: Test")
    message.author.send("Thats it for now. Thanks for using harik bot :) ")
   }
-
-
-
- if (message.content.startsWith(config.prefix + "AddC")) {
-   message.content.split(' ').slice(1).join(' ');
-   function makeChannel(message){
-    var server = message.guild;
-    var name = message.author.username;
-
-    server.createChannel(name, "text");
-  }
-}
-
-
-
   if (message.content.startsWith(config.prefix + "test")) {
     message.channel.send("sorry its h!!test");
   }
-
-  if (message.content.startsWith(config.prefix + "SendTGP")) {
-    var usertext = message.content.split(' ').slice(1).join(' ');
-  h1.channels.get("226009593719816193").send(usertext)
-}
-
-
   if (message.content.startsWith(config.prefix + "help")) {
   const embed = new Discord.RichEmbed()
   .setTitle("Da Best Commands")
@@ -180,7 +158,7 @@ if (message.content.startsWith(Sbot.prefix + "eval")) {
 
   const args = message.content.split(" ").slice(1);
   
-  if(message.author.id !== "224217063458078730") return;
+  if(message.author.id !== "Userid") return;
   
   try {
       var code = args.join(" ");
@@ -260,54 +238,3 @@ DC.on('ready', () => {
 console.log(chalk.bgBlue("get fricken reckt!!!")); 
 });
 DC.login(Sbot.token)
-/*h1.on("message", message => {
-  if (message.content.startsWith(config.prefix2 + "ban"))
- var reason = args.slice(1).join(' ');
- var user = message.mentions.users.first();
-  if (!modlog) return message.reply('I cannot find a mod-log channel');
-  if (reason.length < 1) return message.reply('You must supply a reason for the ban.');
-  if (message.mentions.users.size < 1) return message.reply('You must mention someone to ban them.').catch(console.error);
-
-  const embed = new Discord.RichEmbed()
-    .setColor(0x00AE86)
-    .setTimestamp()
-    .setDescription(`**Action:** Ban\n**Target:** ${user.tag}\n**Moderator:** ${message.author.tag}\n**Reason:** ${reason}`);
-  return client.channels.get(modlog.id).send({embed});
-});*/
-
-/*h1.on("message", message => {
-
- if(!message.member.roles.has(modRole.id)) {
-  return message.reply(":| You Dont Have Permission To Do This");
-  
- }
- if(message.mentions.users.size === 0) {
- return message.reply("Mention Someone(A Idiots Mistake)");
- }
- let kickMember = message.guild.member(message.mentions.users.first());
- if(!kickMember) {
- return message.reply("Invalid")
- }
- if(!message.guild.member(bot.user).hasPermission("KICK_MEMBERS")) {
- return message.reply("I Do Not Have The Permission To Kick");
- }
- kickMember.kick().then(member => {
-return message.reply(`${message.user.username} Just Got Kicked`); 
-}).catch(console.error)
-})*/
-
-/*h1.on("message", message => {
-  const embed = new Discord.RichEmbed()
-  .setTitle('Help')
-  .setAuthor('HarikYT', 'https://cdn.discordapp.com/avatars/224217063458078730/c9a2ec3303d6103ff3e75720b5dfbf68.png')
-  .setColor(0x00AE86)
-  .setDescription('This is the main body of text, it can hold 2048 characters.')
-  .setImage('https://cdn.discordapp.com/avatars/224217063458078730/c9a2ec3303d6103ff3e75720b5dfbf68.png')
-  .setThumbnail('https://cdn.discordapp.com/avatars/224217063458078730/c9a2ec3303d6103ff3e75720b5dfbf68.png')
-  .setURL('https://discord.js.org/#/docs/main/indev/class/RichEmbed')
-  .addField('This is a field title, it can hold 256 characters', 'This is a field value, it can hold 2048 characters.')
- return message.channel.send({embed}).catch(console.error);
-});*/
-
-// h1.on("", => {
-});
