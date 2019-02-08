@@ -233,7 +233,7 @@ if(message.content.startsWith(Sbot.prefix + "warn")) {
  h1.channels.find('name', 'mod-log').sendEmbed(warn);
 }
 });
-
+});
 DC.on('ready', () => {
 console.log(chalk.bgBlue("get fricken reckt!!!")); 
 });
